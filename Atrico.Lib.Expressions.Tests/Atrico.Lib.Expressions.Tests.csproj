@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1FC4D8C4-FA41-4CD4-9B4F-550DF9EB20D9}</ProjectGuid>
+    <ProjectGuid>{0DFA3BD7-9A70-409D-8A7F-8C20F2BAED8F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Atrico.Lib.Expressions.Tests</RootNamespace>
