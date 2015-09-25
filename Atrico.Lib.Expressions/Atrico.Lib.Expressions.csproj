@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3128FE4E-2E9E-4ED2-8356-227A170FFCF2}</ProjectGuid>
+    <ProjectGuid>{8D131824-5A5E-48E4-885C-827A86CFE214}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Atrico.Lib.Expressions</RootNamespace>
@@ -69,10 +69,6 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1507.118, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Moq.4.2.1507.0118\lib\net40\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -84,20 +80,6 @@
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Atrico.Lib.Assertions\Atrico.Lib.Assertions\Atrico.Lib.Assertions.csproj">
-      <Project>{84481d71-f7f0-4c10-87ec-b5717c2860de}</Project>
-      <Name>Atrico.Lib.Assertions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Atrico.Lib.Common\Atrico.Lib.Common\Atrico.Lib.Common.csproj">
-      <Project>{983a29ac-8a3b-4d78-81d7-bcaf9b520877}</Project>
-      <Name>Atrico.Lib.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel.csproj">
-      <Project>{5d118a7a-c9db-4d87-8315-71d7f0353b39}</Project>
-      <Name>Atrico.Lib.DomainModel</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

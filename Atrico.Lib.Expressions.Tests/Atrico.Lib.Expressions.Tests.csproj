@@ -6,7 +6,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0DFA3BD7-9A70-409D-8A7F-8C20F2BAED8F}</ProjectGuid>
+    <ProjectGuid>{1FC4D8C4-FA41-4CD4-9B4F-550DF9EB20D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Atrico.Lib.Expressions.Tests</RootNamespace>
@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Atrico.Lib.Expressions\Properties\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
+      <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
@@ -93,21 +93,13 @@
       <Project>{84481d71-f7f0-4c10-87ec-b5717c2860de}</Project>
       <Name>Atrico.Lib.Assertions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Atrico.Lib.Common\Atrico.Lib.Common\Atrico.Lib.Common.csproj">
-      <Project>{983a29ac-8a3b-4d78-81d7-bcaf9b520877}</Project>
-      <Name>Atrico.Lib.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel.csproj">
-      <Project>{5d118a7a-c9db-4d87-8315-71d7f0353b39}</Project>
-      <Name>Atrico.Lib.DomainModel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Atrico.Lib.Testing\Atrico.Lib.Testing\Atrico.Lib.Testing.csproj">
       <Project>{ef628ff6-5ee4-4043-82fe-8caf3ab36787}</Project>
       <Name>Atrico.Lib.Testing</Name>
     </ProjectReference>
     <ProjectReference Include="..\Atrico.Lib.Expressions\Atrico.Lib.Expressions.csproj">
-      <Project>{3128fe4e-2e9e-4ed2-8356-227a170ffcf2}</Project>
-      <Name>Atrico.Lib.Dimensions</Name>
+      <Project>{8d131824-5a5e-48e4-885c-827a86cfe214}</Project>
+      <Name>Atrico.Lib.Expressions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
