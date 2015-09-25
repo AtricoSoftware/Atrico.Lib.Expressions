@@ -77,9 +77,24 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\ConstantElement.cs" />
+    <Compile Include="Elements\EqualsElement.cs" />
+    <Compile Include="Elements\VariableElement.cs" />
+    <Compile Include="Expression.cs" />
+    <Compile Include="Elements\Element.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Atrico.Lib.Common\Atrico.Lib.Common\Atrico.Lib.Common.csproj">
+      <Project>{983a29ac-8a3b-4d78-81d7-bcaf9b520877}</Project>
+      <Name>Atrico.Lib.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel.csproj">
+      <Project>{5d118a7a-c9db-4d87-8315-71d7f0353b39}</Project>
+      <Name>Atrico.Lib.DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

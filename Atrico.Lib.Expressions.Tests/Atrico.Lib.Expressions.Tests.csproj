@@ -87,11 +87,20 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
+    <Compile Include="TestParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Atrico.Lib.Assertions\Atrico.Lib.Assertions\Atrico.Lib.Assertions.csproj">
       <Project>{84481d71-f7f0-4c10-87ec-b5717c2860de}</Project>
       <Name>Atrico.Lib.Assertions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Atrico.Lib.Common\Atrico.Lib.Common\Atrico.Lib.Common.csproj">
+      <Project>{983a29ac-8a3b-4d78-81d7-bcaf9b520877}</Project>
+      <Name>Atrico.Lib.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel\Atrico.Lib.DomainModel.csproj">
+      <Project>{5d118a7a-c9db-4d87-8315-71d7f0353b39}</Project>
+      <Name>Atrico.Lib.DomainModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Atrico.Lib.Testing\Atrico.Lib.Testing\Atrico.Lib.Testing.csproj">
       <Project>{ef628ff6-5ee4-4043-82fe-8caf3ab36787}</Project>
