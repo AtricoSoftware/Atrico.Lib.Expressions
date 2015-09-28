@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Atrico.Lib.Expressions.Elements;
 using Atrico.Lib.Expressions.Elements.Base;
-using Atrico.Lib.Expressions.Elements.Leaf;
+using Atrico.Lib.Expressions.Exceptions;
 
 namespace Atrico.Lib.Expressions
 {
     public partial class Expression
     {
+        private static readonly ISet<char> _symbols = new HashSet<char>("*/+-="); 
+
         public static Expression Parse(string input, params string[] variables)
         {
             var parts = Split(input);
-            var tokens = Tokenise(parts, variables.Select(v => v.ToLower()));
+            var tokens = Tokenise(parts, new HashSet<string>(variables.Select(v => v.ToLower())));
             var expression = ShuntingYard(tokens);
             return new Expression(expression) {Variables = variables};
         }
@@ -61,11 +62,11 @@ namespace Atrico.Lib.Expressions
             // Letter
             if (char.IsLetter(ch)) return CharType.Letter;
             // Symbol
-            if (char.IsSymbol(ch)) return CharType.Symbol;
+            if (_symbols.Contains(ch)) return CharType.Symbol;
             return CharType.Ignore;
         }
 
-        private static IEnumerable<Token> Tokenise(IEnumerable<string> parts, IEnumerable<string> variables)
+        private static IEnumerable<Token> Tokenise(IEnumerable<string> parts, ICollection<string> variables)
         {
             var tokens = new List<Token>();
             foreach (var part in parts)
@@ -77,7 +78,7 @@ namespace Atrico.Lib.Expressions
                 // Variable
                 if (token == null && variables.Contains(part.ToLower())) token = new VariableToken(part);
                 // Invalid
-                if (token == null) throw new Exception(string.Format("Token is invalid: {0}", part));
+                if (token == null) throw new InvalidTokenException(part);
                 tokens.Add(token);
             }
             return tokens;

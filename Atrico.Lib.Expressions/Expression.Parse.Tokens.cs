@@ -20,6 +20,10 @@ namespace Atrico.Lib.Expressions
             public static OperatorToken Create(string input)
             {
                 if (input == "=") return new EqualsOperatorToken();
+                if (input == "+") return new AdditionOperatorToken();
+                if (input == "-") return new SubtractionOperatorToken();
+                if (input == "*") return new MultiplicationOperatorToken();
+                if (input == "/") return new DivisionOperatorToken();
                 return null;
             }
         }
@@ -70,6 +74,38 @@ namespace Atrico.Lib.Expressions
             public override Element CreateElement(Element lhs, Element rhs)
             {
                 return new EqualsElement(lhs, rhs);
+            }
+        }
+
+        private class AdditionOperatorToken : BinaryOperatorToken
+        {
+            public override Element CreateElement(Element lhs, Element rhs)
+            {
+                return new AdditionElement(lhs, rhs);
+            }
+        }
+
+        private class SubtractionOperatorToken : BinaryOperatorToken
+        {
+            public override Element CreateElement(Element lhs, Element rhs)
+            {
+                return new SubtractionElement(lhs, rhs);
+            }
+        }
+
+        private class MultiplicationOperatorToken : BinaryOperatorToken
+        {
+            public override Element CreateElement(Element lhs, Element rhs)
+            {
+                return new MultiplicationElement(lhs, rhs);
+            }
+        }
+
+        private class DivisionOperatorToken : BinaryOperatorToken
+        {
+            public override Element CreateElement(Element lhs, Element rhs)
+            {
+                return new DivisionElement(lhs, rhs);
             }
         }
     }

@@ -78,10 +78,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\Base\BinaryElement.cs" />
+    <Compile Include="Elements\DivisionElement.cs" />
+    <Compile Include="Elements\AdditionElement.cs" />
     <Compile Include="Elements\Leaf\NumberElement.cs" />
     <Compile Include="Elements\EqualsElement.cs" />
     <Compile Include="Elements\Base\LeafElement.cs" />
     <Compile Include="Elements\Leaf\VariableElement.cs" />
+    <Compile Include="Elements\MultiplicationElement.cs" />
+    <Compile Include="Elements\SubtractionElement.cs" />
+    <Compile Include="Exceptions\ExpressionsException.cs" />
+    <Compile Include="Exceptions\InvalidTokenException.cs" />
+    <Compile Include="Exceptions\ParserException.cs" />
     <Compile Include="Expression.Parse.Tokens.cs" />
     <Compile Include="Expression.Parse.cs" />
     <Compile Include="Expression.cs" />
