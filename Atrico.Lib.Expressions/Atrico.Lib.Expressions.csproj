@@ -89,6 +89,7 @@
     <Compile Include="Exceptions\ExpressionsException.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
+    <Compile Include="Expression.Parse.ShuntingYard.cs" />
     <Compile Include="Expression.Parse.Tokens.cs" />
     <Compile Include="Expression.Parse.cs" />
     <Compile Include="Expression.cs" />

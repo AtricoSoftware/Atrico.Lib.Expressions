@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Atrico.Lib.Expressions.Elements.Base;
 using Atrico.Lib.Expressions.Exceptions;
 
 namespace Atrico.Lib.Expressions
 {
     public partial class Expression
     {
-        private static readonly ISet<char> _symbols = new HashSet<char>("*/+-="); 
+        private static readonly ISet<char> _symbols = new HashSet<char>("*/+-=");
 
         public static Expression Parse(string input, params string[] variables)
         {
             var parts = Split(input);
             var tokens = Tokenise(parts, new HashSet<string>(variables.Select(v => v.ToLower())));
-            var expression = ShuntingYard(tokens);
+            var expression = new ShuntingYard().CreateExpression(tokens);
             return new Expression(expression) {Variables = variables};
         }
 
@@ -25,7 +23,9 @@ namespace Atrico.Lib.Expressions
             Ignore,
             Number,
             Letter,
-            Symbol
+            Symbol,
+            OpenBrace,
+            CloseBrace
         }
 
         private static IEnumerable<string> Split(string input)
@@ -57,12 +57,16 @@ namespace Atrico.Lib.Expressions
 
         private static CharType GetCharType(char ch)
         {
+            // White
             // Number
             if (char.IsDigit(ch)) return CharType.Number;
             // Letter
             if (char.IsLetter(ch)) return CharType.Letter;
             // Symbol
             if (_symbols.Contains(ch)) return CharType.Symbol;
+            // Braces
+            if (ch == '(' ||ch == '[') return CharType.OpenBrace;
+            if (ch == ')' ||ch == ']') return CharType.CloseBrace;
             return CharType.Ignore;
         }
 
@@ -82,42 +86,6 @@ namespace Atrico.Lib.Expressions
                 tokens.Add(token);
             }
             return tokens;
-        }
-
-        private static Element ShuntingYard(IEnumerable<Token> tokens)
-        {
-            var stack = new Stack<Element>();
-            var operatorStack = new Stack<OperatorToken>();
-            Element element = null;
-            foreach (var token in tokens)
-            {
-                // Constants
-                if (token is ConstantToken)
-                {
-                    stack.Push((token as ConstantToken).CreateElement());
-                    continue;
-                }
-                // Operators
-                if (token is OperatorToken)
-                {
-                    operatorStack.Push(token as OperatorToken);
-                    continue;
-                }
-                // Invalid
-                throw new Exception(string.Format("Token is invalid: {0}", token));
-            }
-            // Empty operator stack
-            while (operatorStack.Count > 0)
-            {
-                var op = operatorStack.Pop();
-                if (op is BinaryOperatorToken)
-                {
-                    var rhs = stack.Pop();
-                    var lhs = stack.Pop();
-                    stack.Push((op as BinaryOperatorToken).CreateElement(lhs, rhs));
-                }
-            }
-            return stack.Pop();
         }
     }
 }

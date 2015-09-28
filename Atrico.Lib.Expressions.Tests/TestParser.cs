@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Atrico.Lib.Assertions;
 using Atrico.Lib.Assertions.Constraints;
 using Atrico.Lib.Assertions.Elements;
@@ -15,8 +14,9 @@ namespace Atrico.Lib.Expressions.Tests
     [TestFixture]
     public class TestExpressionBase : TestFixtureBase
     {
-        protected static void DisplayTree(ITreeNodeContainer<string> tree)
+        protected static void DisplayTree(string title, ITreeNodeContainer<string> tree)
         {
+            Debug.WriteLine(title);
             var lines = tree.ToMultilineString().ToArray();
             foreach (var line in lines)
             {
@@ -43,7 +43,7 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"a"}));
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
-            DisplayTree(expTree);
+            DisplayTree(input, expTree);
             var expList = new List<string>();
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
@@ -64,7 +64,7 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"b"}));
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
-            DisplayTree(expTree);
+            DisplayTree(input, expTree);
             var expList = new List<string>();
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
@@ -85,11 +85,12 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
-            DisplayTree(expTree);
+            DisplayTree(input, expTree);
             var expList = new List<string>();
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
         }
+
         [Test]
         public void TestMinus()
         {
@@ -105,11 +106,12 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
-            DisplayTree(expTree);
+            DisplayTree(input, expTree);
             var expList = new List<string>();
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
         }
+
         [Test]
         public void TestMultiply()
         {
@@ -125,11 +127,12 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
-            DisplayTree(expTree);
+            DisplayTree(input, expTree);
             var expList = new List<string>();
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
         }
+
         [Test]
         public void TestDivide()
         {
@@ -145,7 +148,133 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
-            DisplayTree(expTree);
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestPrecedence1()
+        {
+            const string input = "y = x + 1 * 2";
+            var expected = new[] {"=", "y", "+", "x", "*", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestPrecedence2()
+        {
+            const string input = "y = x * 1 + 2";
+            var expected = new[] {"=", "y", "+", "*", "x", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestPrecedenceBracesChange1()
+        {
+            const string input = "y = (x + 1) * 2";
+            var expected = new[] {"=", "y", "*", "+", "x", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestPrecedenceBracesChange2()
+        {
+            const string input = "y = x * (1 + 2)";
+            var expected = new[] {"=", "y", "*", "x", "+", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestPrecedenceBracesSame1()
+        {
+            const string input = "y = x + (1 * 2)";
+            var expected = new[] {"=", "y", "+", "x", "*", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestPrecedenceBracesSame2()
+        {
+            const string input = "y = (x * 1) + 2";
+            var expected = new[] {"=", "y", "+", "*", "x", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
             var expList = new List<string>();
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
