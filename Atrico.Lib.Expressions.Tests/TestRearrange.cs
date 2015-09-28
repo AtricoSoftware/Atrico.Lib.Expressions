@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Atrico.Lib.Assertions;
 using Atrico.Lib.Assertions.Constraints;
 using Atrico.Lib.Assertions.Elements;
+using Atrico.Lib.Expressions.Exceptions;
+using Atrico.Lib.Testing;
 using Atrico.Lib.Testing.TestAttributes.NUnit;
 
 namespace Atrico.Lib.Expressions.Tests
@@ -13,15 +16,16 @@ namespace Atrico.Lib.Expressions.Tests
         public void TestNoChange()
         {
             const string input = "a = 1";
-            var expected = new[] {"=", "a", "1"};
+            var expected = new[] {"1"};
 
             // Arrange
+            var master = Expression.Parse(input);
 
             // Act
-            var expression = Expression.Parse(input);
+            var expression = master.RearrangeFor("a");
 
             // Assert
-            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"a"}));
+            Assert.That(Value.Of(expression.Variables).Count().Is().EqualTo(0), "No variables");
             var expTree = expression.ToTree();
             Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
             DisplayTree(input, expTree);
@@ -32,19 +36,20 @@ namespace Atrico.Lib.Expressions.Tests
 
         #region Errors
 
-        //[Test]
-        //public void TestUnrecognisedVariable()
-        //{
-        //    const string input = "a = 1";
+        [Test]
+        public void TestUnrecognisedVariable()
+        {
+            const string input = "a = 1";
 
-        //    // Arrange
+            // Arrange
+            var expression = Expression.Parse(input);
 
-        //    // Act
-        //    var ex = Catch.Exception(() => Expression.Parse(input));
+            // Act
+            var ex = Catch.Exception(() => expression.RearrangeFor("b"));
 
-        //    // Assert
-        //    Assert.That(Value.Of(ex).Is().TypeOf(typeof(InvalidTokenException)), "Token is invalid");
-        //}
+            // Assert
+            Assert.That(Value.Of(ex).Is().TypeOf(typeof(UnrecognisedVariableException)), "Unknown variable");
+        }
 
         #endregion
     }

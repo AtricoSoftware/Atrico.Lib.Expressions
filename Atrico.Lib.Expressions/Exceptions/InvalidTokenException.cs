@@ -1,9 +1,9 @@
 ﻿namespace Atrico.Lib.Expressions.Exceptions
 {
-    public sealed class InvalidTokenException : ParserException
+    public sealed class InvalidTokenException : ExpressionsException
     {
         public InvalidTokenException(string token)
-            : base(string.Format("Invalid token: {0}", token))
+            : base("Invalid token: {0}", token)
         {
         }
     }

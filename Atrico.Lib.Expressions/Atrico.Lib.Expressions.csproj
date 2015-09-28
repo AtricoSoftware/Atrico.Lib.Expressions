@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3128FE4E-2E9E-4ED2-8356-227A170FFCF2}</ProjectGuid>
+    <ProjectGuid>{8D131824-5A5E-48E4-885C-827A86CFE214}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Atrico.Lib.Expressions</RootNamespace>
@@ -88,7 +88,8 @@
     <Compile Include="Elements\SubtractionElement.cs" />
     <Compile Include="Exceptions\ExpressionsException.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
-    <Compile Include="Exceptions\ParserException.cs" />
+    <Compile Include="Exceptions\UnrecognisedVariableException.cs" />
+    <Compile Include="Expression.Rearrange.cs" />
     <Compile Include="zzImplementation\Parser\ShuntingYard.cs" />
     <Compile Include="zzImplementation\Parser\Tokens\AdditionOperatorToken.cs" />
     <Compile Include="zzImplementation\Parser\Tokens\AssignmentOperatorToken.cs" />
