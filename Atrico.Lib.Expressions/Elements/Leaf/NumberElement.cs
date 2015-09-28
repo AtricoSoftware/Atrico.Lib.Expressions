@@ -2,11 +2,11 @@ using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions.Elements.Leaf
 {
-    public sealed class VariableElement : LeafElement<string>
+    public sealed class NumberElement : LeafElement<int>
     {
 
-        public VariableElement(string name)
-            : base(name)
+        public NumberElement(int value)
+            : base(value)
         {
         }
 

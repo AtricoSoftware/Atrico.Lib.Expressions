@@ -1,6 +1,6 @@
 using Atrico.Lib.Common.Collections.Tree;
 
-namespace Atrico.Lib.Expressions.Elements
+namespace Atrico.Lib.Expressions.Elements.Base
 {
     public abstract class LeafElement<T> : Element
     {

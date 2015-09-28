@@ -2,7 +2,7 @@
 using Atrico.Lib.Common.PropertyContainer;
 using Atrico.Lib.DomainModel;
 
-namespace Atrico.Lib.Expressions.Elements
+namespace Atrico.Lib.Expressions.Elements.Base
 {
     public abstract class Element : ValueObject<Element>
     {

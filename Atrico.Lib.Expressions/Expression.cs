@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Atrico.Lib.Common.Collections.Tree;
 using Atrico.Lib.Expressions.Elements;
+using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions
 {

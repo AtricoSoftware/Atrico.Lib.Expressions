@@ -1,3 +1,5 @@
+using Atrico.Lib.Expressions.Elements.Base;
+
 namespace Atrico.Lib.Expressions.Elements
 {
     public sealed class EqualsElement : BinaryElement
