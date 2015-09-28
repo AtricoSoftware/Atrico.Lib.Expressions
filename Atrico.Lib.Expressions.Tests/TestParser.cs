@@ -1,30 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using Atrico.Lib.Assertions;
 using Atrico.Lib.Assertions.Constraints;
 using Atrico.Lib.Assertions.Elements;
-using Atrico.Lib.Common.Collections.Tree;
 using Atrico.Lib.Expressions.Exceptions;
 using Atrico.Lib.Testing;
 using Atrico.Lib.Testing.TestAttributes.NUnit;
 
 namespace Atrico.Lib.Expressions.Tests
 {
-    [TestFixture]
-    public class TestExpressionBase : TestFixtureBase
-    {
-        protected static void DisplayTree(string title, ITreeNodeContainer<string> tree)
-        {
-            Debug.WriteLine(title);
-            var lines = tree.ToMultilineString().ToArray();
-            foreach (var line in lines)
-            {
-                Debug.WriteLine(line);
-            }
-        }
-    }
-
     [TestFixture]
     public class TestParser : TestExpressionBase
     {
@@ -264,6 +247,26 @@ namespace Atrico.Lib.Expressions.Tests
         {
             const string input = "y = (x * 1) + 2";
             var expected = new[] {"=", "y", "+", "*", "x", "1", "2"};
+
+            // Arrange
+
+            // Act
+            var expression = Expression.Parse(input, "x", "y");
+
+            // Assert
+            Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree(input, expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+        [Test]
+        public void TestAssociativity()
+        {
+            const string input = "y = x * 1 * 2 * 3";
+            var expected = new[] {"=", "y", "*", "*", "*", "x", "1", "2", "3"};
 
             // Arrange
 

@@ -89,14 +89,27 @@
     <Compile Include="Exceptions\ExpressionsException.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
     <Compile Include="Exceptions\ParserException.cs" />
-    <Compile Include="Expression.Parse.ShuntingYard.cs" />
-    <Compile Include="Expression.Parse.Tokens.cs" />
+    <Compile Include="zzImplementation\Parser\ShuntingYard.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\AdditionOperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\AssignmentOperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\BinaryOperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\BraceToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\CloseBraceToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\ConstantToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\DivisionOperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\Token.cs" />
     <Compile Include="Expression.Parse.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="Elements\Base\Element.cs" />
     <Compile Include="Properties\AssemblyVersion.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\MultiplicationOperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\NumberToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\OpenBraceToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\OperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\SubtractionOperatorToken.cs" />
+    <Compile Include="zzImplementation\Parser\Tokens\VariableToken.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Atrico.Lib.Common\Atrico.Lib.Common\Atrico.Lib.Common.csproj">
