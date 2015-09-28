@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Atrico.Lib.Common.Collections.Tree;
-using Atrico.Lib.Expressions.Elements;
 using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions
@@ -12,6 +11,8 @@ namespace Atrico.Lib.Expressions
         private Expression(Element expression)
         {
             _expression = expression;
+            // Discover variables
+            Variables = _expression.GetVariables();
         }
 
         public IEnumerable<string> Variables { get; private set; }
@@ -22,6 +23,5 @@ namespace Atrico.Lib.Expressions
             _expression.ToTree(tree);
             return tree;
         }
-
-     }
+    }
 }

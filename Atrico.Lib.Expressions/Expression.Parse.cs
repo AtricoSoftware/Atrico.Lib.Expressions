@@ -11,12 +11,12 @@ namespace Atrico.Lib.Expressions
     {
         private static readonly ISet<char> _symbols = new HashSet<char>("*/+-=");
 
-        public static Expression Parse(string input, params string[] variables)
+        public static Expression Parse(string input)
         {
             var parts = Split(input);
-            var tokens = Tokenise(parts, new HashSet<string>(variables.Select(v => v.ToLower())));
+            var tokens = Tokenise(parts);
             var expression = new ShuntingYard().CreateExpression(tokens);
-            return new Expression(expression) {Variables = variables};
+            return new Expression(expression);
         }
 
         private enum CharType
@@ -59,7 +59,6 @@ namespace Atrico.Lib.Expressions
 
         private static CharType GetCharType(char ch)
         {
-            // White
             // Number
             if (char.IsDigit(ch)) return CharType.Number;
             // Letter
@@ -67,12 +66,12 @@ namespace Atrico.Lib.Expressions
             // Symbol
             if (_symbols.Contains(ch)) return CharType.Symbol;
             // Braces
-            if (ch == '(' ||ch == '[') return CharType.OpenBrace;
-            if (ch == ')' ||ch == ']') return CharType.CloseBrace;
+            if (ch == '(') return CharType.OpenBrace;
+            if (ch == ')') return CharType.CloseBrace;
             return CharType.Ignore;
         }
 
-        private static IEnumerable<Token> Tokenise(IEnumerable<string> parts, ICollection<string> variables)
+        private static IEnumerable<Token> Tokenise(IEnumerable<string> parts)
         {
             var tokens = new List<Token>();
             foreach (var part in parts)
@@ -82,7 +81,7 @@ namespace Atrico.Lib.Expressions
                 // Operator
                 if (token == null) token = OperatorToken.Create(part);
                 // Variable
-                if (token == null && variables.Contains(part.ToLower())) token = new VariableToken(part);
+                if (token == null && part.All(char.IsLetter)) token = new VariableToken(part);
                 // Invalid
                 if (token == null) throw new InvalidTokenException(part);
                 tokens.Add(token);

@@ -2,8 +2,6 @@
 using Atrico.Lib.Assertions;
 using Atrico.Lib.Assertions.Constraints;
 using Atrico.Lib.Assertions.Elements;
-using Atrico.Lib.Expressions.Exceptions;
-using Atrico.Lib.Testing;
 using Atrico.Lib.Testing.TestAttributes.NUnit;
 
 namespace Atrico.Lib.Expressions.Tests
@@ -20,7 +18,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "a");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"a"}));
@@ -41,7 +39,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "b");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"b"}));
@@ -62,7 +60,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -83,7 +81,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -104,7 +102,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -125,7 +123,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -146,7 +144,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -167,7 +165,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -188,7 +186,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -209,7 +207,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -230,7 +228,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -251,7 +249,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -262,6 +260,7 @@ namespace Atrico.Lib.Expressions.Tests
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
         }
+
         [Test]
         public void TestAssociativity()
         {
@@ -271,7 +270,7 @@ namespace Atrico.Lib.Expressions.Tests
             // Arrange
 
             // Act
-            var expression = Expression.Parse(input, "x", "y");
+            var expression = Expression.Parse(input);
 
             // Assert
             Assert.That(Value.Of(expression.Variables).Is().EquivalentTo(new[] {"x", "y"}));
@@ -284,20 +283,6 @@ namespace Atrico.Lib.Expressions.Tests
         }
 
         #region Errors
-
-        [Test]
-        public void TestUnrecognisedVariable()
-        {
-            const string input = "a = b";
-
-            // Arrange
-
-            // Act
-            var ex = Catch.Exception(() => Expression.Parse(input, "a"));
-
-            // Assert
-            Assert.That(Value.Of(ex).Is().TypeOf(typeof(InvalidTokenException)), "Token is invalid");
-        }
 
         #endregion
     }

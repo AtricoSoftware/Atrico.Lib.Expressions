@@ -4,7 +4,7 @@ namespace Atrico.Lib.Expressions.Elements.Base
 {
     public abstract class LeafElement<T> : Element
     {
-        private T Value
+        protected T Value
         {
             get { return Properties.Get<T>(); }
             set { Properties.Set(value); }

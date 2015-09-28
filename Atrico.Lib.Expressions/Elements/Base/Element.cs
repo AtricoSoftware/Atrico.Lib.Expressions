@@ -1,4 +1,5 @@
-﻿using Atrico.Lib.Common.Collections.Tree;
+﻿using System.Collections.Generic;
+using Atrico.Lib.Common.Collections.Tree;
 using Atrico.Lib.Common.PropertyContainer;
 using Atrico.Lib.DomainModel;
 
@@ -27,5 +28,6 @@ namespace Atrico.Lib.Expressions.Elements.Base
             return Properties.Equals(other.Properties);
         }
 
+        public abstract IEnumerable<string> GetVariables();
     }
 }

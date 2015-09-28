@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Atrico.Lib.Common.Collections.Tree;
 
 namespace Atrico.Lib.Expressions.Elements.Base
@@ -18,6 +20,11 @@ namespace Atrico.Lib.Expressions.Elements.Base
             var node = tree.Add(ToString());
             _lhs.ToTree(node);
             _rhs.ToTree(node);
+        }
+
+        public override IEnumerable<string> GetVariables()
+        {
+            return _lhs.GetVariables().Concat(_rhs.GetVariables());
         }
     }
 }

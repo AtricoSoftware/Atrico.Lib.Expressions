@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Atrico.Lib.Expressions.Elements.Base;
+using Atrico.Lib.Expressions.Exceptions;
 using Atrico.Lib.Expressions.zzImplementation.Parser.Tokens;
 
 namespace Atrico.Lib.Expressions.zzImplementation.Parser
@@ -40,7 +40,7 @@ namespace Atrico.Lib.Expressions.zzImplementation.Parser
                     continue;
                 }
                 // Invalid
-                throw new Exception(string.Format("Token is invalid: {0}", token));
+                throw new InvalidTokenException(token.GetType().Name);
             }
             // Empty operator stack
             while (_operatorStack.Count > 0)
