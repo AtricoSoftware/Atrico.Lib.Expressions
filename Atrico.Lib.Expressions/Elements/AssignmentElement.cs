@@ -2,9 +2,9 @@ using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions.Elements
 {
-    public sealed class EqualsElement : BinaryElement
+    public sealed class AssignmentElement : BinaryElement
     {
-        public EqualsElement(Element lhs, Element rhs)
+        public AssignmentElement(Element lhs, Element rhs)
             : base(lhs, rhs)
         {
         }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions.Elements.Leaf
@@ -10,9 +9,9 @@ namespace Atrico.Lib.Expressions.Elements.Leaf
         {
         }
 
-        public override IEnumerable<string> GetVariables()
+        public override Element FindVariable(string variable)
         {
-            return new[] {Value};
+            return Value.Equals(variable) ? this : null;
         }
     }
 }

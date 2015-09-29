@@ -12,7 +12,7 @@ namespace Atrico.Lib.Expressions.zzImplementation.Parser.Tokens
 
         public override Element CreateElement(Element lhs, Element rhs)
         {
-            return new EqualsElement(lhs, rhs);
+            return new AssignmentElement(lhs, rhs);
         }
 
         public override string ToString()

@@ -6,25 +6,31 @@ namespace Atrico.Lib.Expressions.Elements.Base
 {
     public abstract class BinaryElement : Element
     {
-        private readonly Element _lhs;
-        private readonly Element _rhs;
+        internal readonly Element Lhs;
+        internal readonly Element Rhs;
 
         protected BinaryElement(Element lhs, Element rhs)
         {
-            _lhs = lhs;
-            _rhs = rhs;
+            Lhs = lhs;
+            Rhs = rhs;
+        }
+
+        public override IEnumerable<Element> AllLeaves
+        {
+            get { return Lhs.AllLeaves.Concat(Rhs.AllLeaves); }
+        }
+
+        public override Element FindVariable(string variable)
+        {
+            var found = Lhs.FindVariable(variable);
+            return found ?? Rhs.FindVariable(variable);
         }
 
         public override void ToTree(ITreeNodeContainer<string> tree)
         {
             var node = tree.Add(ToString());
-            _lhs.ToTree(node);
-            _rhs.ToTree(node);
-        }
-
-        public override IEnumerable<string> GetVariables()
-        {
-            return _lhs.GetVariables().Concat(_rhs.GetVariables());
+            Lhs.ToTree(node);
+            Rhs.ToTree(node);
         }
     }
 }

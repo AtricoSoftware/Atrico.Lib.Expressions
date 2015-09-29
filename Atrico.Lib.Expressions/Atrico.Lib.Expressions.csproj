@@ -81,13 +81,14 @@
     <Compile Include="Elements\DivisionElement.cs" />
     <Compile Include="Elements\AdditionElement.cs" />
     <Compile Include="Elements\Leaf\NumberElement.cs" />
-    <Compile Include="Elements\EqualsElement.cs" />
+    <Compile Include="Elements\AssignmentElement.cs" />
     <Compile Include="Elements\Base\LeafElement.cs" />
     <Compile Include="Elements\Leaf\VariableElement.cs" />
     <Compile Include="Elements\MultiplicationElement.cs" />
     <Compile Include="Elements\SubtractionElement.cs" />
     <Compile Include="Exceptions\ExpressionsException.cs" />
     <Compile Include="Exceptions\InvalidTokenException.cs" />
+    <Compile Include="Exceptions\MissingAssignmentException.cs" />
     <Compile Include="Exceptions\UnrecognisedVariableException.cs" />
     <Compile Include="Expression.Rearrange.cs" />
     <Compile Include="zzImplementation\Parser\ShuntingYard.cs" />

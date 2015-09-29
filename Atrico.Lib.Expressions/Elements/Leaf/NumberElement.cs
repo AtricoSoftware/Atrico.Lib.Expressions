@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions.Elements.Leaf
@@ -9,11 +7,6 @@ namespace Atrico.Lib.Expressions.Elements.Leaf
         public NumberElement(int value)
             : base(value)
         {
-        }
-
-        public override IEnumerable<string> GetVariables()
-        {
-            return new String[] {};
         }
     }
 }

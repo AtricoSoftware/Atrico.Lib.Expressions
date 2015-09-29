@@ -16,7 +16,13 @@ namespace Atrico.Lib.Expressions.Elements.Base
             Properties.Set(GetType());
         }
 
+        public abstract IEnumerable<Element> AllLeaves { get; }
+
         public abstract void ToTree(ITreeNodeContainer<string> tree);
+
+        public abstract Element FindVariable(string variable);
+
+        #region Equality
 
         protected override int GetHashCodeImpl()
         {
@@ -28,6 +34,6 @@ namespace Atrico.Lib.Expressions.Elements.Base
             return Properties.Equals(other.Properties);
         }
 
-        public abstract IEnumerable<string> GetVariables();
+        #endregion
     }
 }
