@@ -9,6 +9,11 @@ namespace Atrico.Lib.Expressions.Elements.Base
     {
         protected readonly PropertyContainer Properties;
 
+        public Element FindParent(Element root)
+        {
+            return root.FindParentOf(this);
+        }
+        
         protected Element()
         {
             Properties = new PropertyContainer(this);
@@ -21,6 +26,8 @@ namespace Atrico.Lib.Expressions.Elements.Base
         public abstract void ToTree(ITreeNodeContainer<string> tree);
 
         public abstract Element FindVariable(string variable);
+        
+        internal abstract Element FindParentOf(Element child);
 
         #region Equality
 

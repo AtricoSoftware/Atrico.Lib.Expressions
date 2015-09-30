@@ -35,5 +35,10 @@ namespace Atrico.Lib.Expressions.Elements.Base
         {
             return Value.ToString();
         }
+
+        internal override Element FindParentOf(Element child)
+        {
+            return null;
+        }
     }
 }

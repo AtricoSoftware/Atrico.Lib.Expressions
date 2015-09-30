@@ -37,13 +37,13 @@ namespace Atrico.Lib.Expressions.Tests
         public void TestNoChange2()
         {
             const string input = "a = b";
-            var expected = new[] {"b"};
+            var expected = new[] {"a"};
 
             // Arrange
             var master = Expression.Parse(input);
 
             // Act
-            var expression = master.RearrangeFor("a");
+            var expression = master.RearrangeFor("b");
 
             // Assert
             var expTree = expression.ToTree();

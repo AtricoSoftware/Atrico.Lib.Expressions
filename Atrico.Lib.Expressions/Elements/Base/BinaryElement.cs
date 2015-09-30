@@ -6,8 +6,17 @@ namespace Atrico.Lib.Expressions.Elements.Base
 {
     public abstract class BinaryElement : Element
     {
-        internal readonly Element Lhs;
-        internal readonly Element Rhs;
+        internal Element Lhs
+        {
+            get { return Properties.Get<Element>(); }
+            private set { Properties.Set(value); }
+        }
+
+        internal Element Rhs
+        {
+            get { return Properties.Get<Element>(); }
+            private set { Properties.Set(value); }
+        }
 
         protected BinaryElement(Element lhs, Element rhs)
         {
@@ -26,11 +35,19 @@ namespace Atrico.Lib.Expressions.Elements.Base
             return found ?? Rhs.FindVariable(variable);
         }
 
+        internal override Element FindParentOf(Element child)
+        {
+            if (ReferenceEquals(Lhs, child) || ReferenceEquals(Rhs, child)) return this;
+            var found = Lhs.FindParentOf(child);
+            return found ?? Rhs.FindParentOf(child);
+        }
+
         public override void ToTree(ITreeNodeContainer<string> tree)
         {
             var node = tree.Add(ToString());
             Lhs.ToTree(node);
             Rhs.ToTree(node);
         }
+
     }
 }
