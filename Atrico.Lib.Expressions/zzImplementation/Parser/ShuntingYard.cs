@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Atrico.Lib.Expressions.Elements;
 using Atrico.Lib.Expressions.Elements.Base;
 using Atrico.Lib.Expressions.Exceptions;
 using Atrico.Lib.Expressions.zzImplementation.Parser.Tokens;
@@ -71,7 +72,7 @@ namespace Atrico.Lib.Expressions.zzImplementation.Parser
             var op = _operatorStack.Pop() as BinaryOperatorToken;
             var rhs = _stack.Pop();
             var lhs = _stack.Pop();
-            _stack.Push(op.CreateElement(lhs, rhs));
+            _stack.Push(op.CreateElement(new ElementPair(lhs, rhs)));
         }
 
         private void EvaluateToOpenBrace()

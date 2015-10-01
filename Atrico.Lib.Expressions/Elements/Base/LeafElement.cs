@@ -16,6 +16,12 @@ namespace Atrico.Lib.Expressions.Elements.Base
             Value = value;
         }
 
+        public override OperatorElement FindParent(Element target)
+        {
+            // Leaf cannot be a parent
+            return null;
+        }
+
         public override IEnumerable<Element> AllLeaves
         {
             get { return new Element[] {this}; }
@@ -26,6 +32,11 @@ namespace Atrico.Lib.Expressions.Elements.Base
             return null;
         }
 
+        public override Element Replace(Element original, Element replacement)
+        {
+            return this;
+        }
+
         public override void ToTree(ITreeNodeContainer<string> tree)
         {
             tree.Add(Value.ToString());
@@ -34,11 +45,6 @@ namespace Atrico.Lib.Expressions.Elements.Base
         public override string ToString()
         {
             return Value.ToString();
-        }
-
-        internal override Element FindParentOf(Element child)
-        {
-            return null;
         }
     }
 }

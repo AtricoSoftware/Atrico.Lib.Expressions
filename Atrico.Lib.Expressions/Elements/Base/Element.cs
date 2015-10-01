@@ -1,46 +1,30 @@
 ﻿using System.Collections.Generic;
 using Atrico.Lib.Common.Collections.Tree;
 using Atrico.Lib.Common.PropertyContainer;
-using Atrico.Lib.DomainModel;
 
 namespace Atrico.Lib.Expressions.Elements.Base
 {
-    public abstract class Element : ValueObject<Element>
+    public abstract class Element
     {
         protected readonly PropertyContainer Properties;
 
-        public Element FindParent(Element root)
-        {
-            return root.FindParentOf(this);
-        }
-        
         protected Element()
         {
             Properties = new PropertyContainer(this);
-            // Type for comparison
-            Properties.Set(GetType());
         }
 
         public abstract IEnumerable<Element> AllLeaves { get; }
 
-        public abstract void ToTree(ITreeNodeContainer<string> tree);
+        /// <summary>
+        /// Find the parent element of the element specified starting from here
+        /// </summary>
+        /// <param name="target">Target element to find parent of</param>
+        /// <returns>Parent element or null</returns>
+        public abstract OperatorElement FindParent(Element target);
+
+        public abstract Element Replace(Element original, Element replacement);
 
         public abstract Element FindVariable(string variable);
-        
-        internal abstract Element FindParentOf(Element child);
-
-        #region Equality
-
-        protected override int GetHashCodeImpl()
-        {
-            return Properties.GetHashCode();
-        }
-
-        protected override bool EqualsImpl(Element other)
-        {
-            return Properties.Equals(other.Properties);
-        }
-
-        #endregion
+        public abstract void ToTree(ITreeNodeContainer<string> tree);
     }
 }

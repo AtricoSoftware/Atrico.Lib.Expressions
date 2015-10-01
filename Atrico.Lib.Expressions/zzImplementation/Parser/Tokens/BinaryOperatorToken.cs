@@ -1,3 +1,4 @@
+using Atrico.Lib.Expressions.Elements;
 using Atrico.Lib.Expressions.Elements.Base;
 
 namespace Atrico.Lib.Expressions.zzImplementation.Parser.Tokens
@@ -18,6 +19,6 @@ namespace Atrico.Lib.Expressions.zzImplementation.Parser.Tokens
             Associativity = associativity;
         }
 
-        public abstract Element CreateElement(Element lhs, Element rhs);
+        public abstract Element CreateElement(ElementPair elements);
     }
 }

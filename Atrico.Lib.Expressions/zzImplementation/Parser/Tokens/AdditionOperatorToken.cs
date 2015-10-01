@@ -10,9 +10,9 @@ namespace Atrico.Lib.Expressions.zzImplementation.Parser.Tokens
         {
         }
 
-        public override Element CreateElement(Element lhs, Element rhs)
+        public override Element CreateElement(ElementPair elements)
         {
-            return new AdditionElement(lhs, rhs);
+            return new AdditionElement(elements);
         }
 
         public override string ToString()

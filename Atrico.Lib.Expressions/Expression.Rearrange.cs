@@ -23,22 +23,25 @@ namespace Atrico.Lib.Expressions
         private static AssignmentElement MoveVariableToLhs(AssignmentElement equals, string variable, out Element varEl)
         {
             if (ReferenceEquals(equals, null)) throw new MissingAssignmentException();
-            varEl = equals.Lhs.FindVariable(variable);
+            varEl = equals.Elements.Lhs.FindVariable(variable);
             if (!ReferenceEquals(varEl, null)) return equals;
-            varEl = equals.Rhs.FindVariable(variable);
+            varEl = equals.Elements.Rhs.FindVariable(variable);
             if (ReferenceEquals(varEl, null)) throw new UnrecognisedVariableException(variable);
             // Swap lhs/rhs
-            return new AssignmentElement(equals.Rhs, equals.Lhs);
+            return new AssignmentElement(equals.Elements.Swap());
         }
 
-        private Element Rearrange(AssignmentElement current, Element target)
+        private Element Rearrange(AssignmentElement root, Element targetVar)
         {
-            // Check for no rearrange necessary
-            if (current.Lhs == target) return current.Rhs;
-            // Rearrange first part of tree
-            var parent = target.FindParent(_expression);
-
-            return null;
+            while (true)
+            {
+                // Check for no rearrange necessary
+                if (root.Elements.Lhs == targetVar) return root.Elements.Rhs;
+                // Rearrange first part of tree
+                var lastOperation = root.Elements.Lhs.FindParent(targetVar);
+                var newRoot = root.Replace(lastOperation, targetVar) as AssignmentElement;
+                root = newRoot.Replace(newRoot.Elements.Rhs, lastOperation.Invert(targetVar, newRoot.Elements.Rhs)) as AssignmentElement;
+            }
         }
     }
 }
