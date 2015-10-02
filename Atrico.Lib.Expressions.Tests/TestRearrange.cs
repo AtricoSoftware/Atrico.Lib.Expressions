@@ -226,6 +226,27 @@ namespace Atrico.Lib.Expressions.Tests
             expTree.DepthFirst(el => expList.Add(el.Data));
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
         }
+        [Test]
+        public void TestMultipleOperations()
+        {
+            const string input = "y = x * 2 + 3";
+            var expected = new[] {"/", "+", "y", "3", "2"};
+
+            // Arrange
+            var master = Expression.Parse(input);
+            DisplayTree(input, master.ToTree());
+
+            // Act
+            var expression = master.RearrangeFor("x");
+
+            // Assert
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree("Rearranged for x", expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
 
         #region Errors
 
