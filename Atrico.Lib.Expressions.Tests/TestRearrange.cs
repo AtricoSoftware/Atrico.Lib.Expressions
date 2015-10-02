@@ -98,6 +98,49 @@ namespace Atrico.Lib.Expressions.Tests
             Assert.That(Value.Of(expList).Is().EqualTo(expected));
         }
         [Test]
+        public void TestSimpleSubtraction()
+        {
+            const string input = "y = x - 1";
+            var expected = new[] {"+", "y", "1"};
+
+            // Arrange
+            var master = Expression.Parse(input);
+            DisplayTree(input, master.ToTree());
+
+            // Act
+            var expression = master.RearrangeFor("x");
+
+            // Assert
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree("Rearranged for x", expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestSimpleSubtractionReverse()
+        {
+            const string input = "y = 1 - x";
+            var expected = new[] {"-", "1", "y"};
+
+            // Arrange
+            var master = Expression.Parse(input);
+            DisplayTree(input, master.ToTree());
+
+            // Act
+            var expression = master.RearrangeFor("x");
+
+            // Assert
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree("Rearranged for x", expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+        [Test]
         public void TestSimpleMultiplication()
         {
             const string input = "y = x * 2";
@@ -124,6 +167,49 @@ namespace Atrico.Lib.Expressions.Tests
         {
             const string input = "y = 2 * x";
             var expected = new[] {"/", "y", "2"};
+
+            // Arrange
+            var master = Expression.Parse(input);
+            DisplayTree(input, master.ToTree());
+
+            // Act
+            var expression = master.RearrangeFor("x");
+
+            // Assert
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree("Rearranged for x", expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+        [Test]
+        public void TestSimpleDivision()
+        {
+            const string input = "y = x / 2";
+            var expected = new[] {"*", "y", "2"};
+
+            // Arrange
+            var master = Expression.Parse(input);
+            DisplayTree(input, master.ToTree());
+
+            // Act
+            var expression = master.RearrangeFor("x");
+
+            // Assert
+            var expTree = expression.ToTree();
+            Assert.That(Value.Of(expTree).Is().Not().Null(), "Not null");
+            DisplayTree("Rearranged for x", expTree);
+            var expList = new List<string>();
+            expTree.DepthFirst(el => expList.Add(el.Data));
+            Assert.That(Value.Of(expList).Is().EqualTo(expected));
+        }
+
+        [Test]
+        public void TestSimpleDivisionReverse()
+        {
+            const string input = "y = 2 / x";
+            var expected = new[] {"/", "2", "y"};
 
             // Arrange
             var master = Expression.Parse(input);

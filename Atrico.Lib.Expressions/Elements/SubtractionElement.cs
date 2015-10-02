@@ -16,7 +16,9 @@ namespace Atrico.Lib.Expressions.Elements
 
         public override Element Invert(Element original, Element replacement)
         {
-            throw new System.NotImplementedException();
+            ElementPair.Replacement result;
+            var newElements = Elements.Replace(original, replacement, out result);
+            return result == ElementPair.Replacement.Lhs ? new AdditionElement(newElements) : new SubtractionElement(newElements) as Element;
         }
 
         protected override OperatorElement Clone(ElementPair elements)
