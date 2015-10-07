@@ -16,7 +16,7 @@ namespace Atrico.Lib.Expressions.Elements.Base
             Value = value;
         }
 
-        public override OperatorElement FindParent(Element target)
+        public override IEnumerable<OperatorElement> FindPath(Element target)
         {
             // Leaf cannot be a parent
             return null;

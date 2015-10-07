@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Atrico.Lib.Expressions.Elements;
 using Atrico.Lib.Expressions.Elements.Base;
 using Atrico.Lib.Expressions.Exceptions;
@@ -38,9 +39,11 @@ namespace Atrico.Lib.Expressions
                 // Check for no rearrange necessary
                 if (root.Elements.Lhs == targetVar) return root.Elements.Rhs;
                 // Rearrange first part of tree
-                var lastOperation = root.Elements.Lhs.FindParent(targetVar);
+                var targetPath = root.Elements.Lhs.FindPath(targetVar).ToArray();
+                var lastOperation = targetPath.First();
+                var varBranch = targetPath.Skip(1).FirstOrDefault() ?? targetVar;
                 var newRoot = root.Replace(lastOperation, targetVar) as AssignmentElement;
-                root = newRoot.Replace(newRoot.Elements.Rhs, lastOperation.Invert(targetVar, newRoot.Elements.Rhs)) as AssignmentElement;
+                root = newRoot.Replace(newRoot.Elements.Rhs, lastOperation.Invert(varBranch, newRoot.Elements.Rhs)) as AssignmentElement;
             }
         }
     }

@@ -27,10 +27,12 @@ namespace Atrico.Lib.Expressions.Elements.Base
 
         protected abstract OperatorElement Clone(ElementPair elements);
 
-        public override OperatorElement FindParent(Element target)
+        public override IEnumerable<OperatorElement> FindPath(Element target)
         {
-            if (ReferenceEquals(Elements.Lhs, target) || ReferenceEquals(Elements.Rhs, target)) return this;
-            return Elements.Lhs.FindParent(target) ?? Elements.Rhs.FindParent(target);
+            var pathHere = new[] {this};
+            if (ReferenceEquals(Elements.Lhs, target) || ReferenceEquals(Elements.Rhs, target)) return pathHere;
+            var pathFromHere = Elements.Lhs.FindPath(target) ?? Elements.Rhs.FindPath(target);
+            return pathFromHere != null ? pathHere.Concat(pathFromHere) : null;
         }
 
         public override IEnumerable<Element> AllLeaves
