@@ -21,9 +21,7 @@ namespace Atrico.Lib.Expressions
 
         public ITreeNodeContainer<string> ToTree()
         {
-            var tree = Tree.Create<string>(true);
-            _expression.ToTree(tree);
-            return tree;
+            return _expression.ToTree();
         }
     }
 }

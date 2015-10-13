@@ -230,7 +230,7 @@ namespace Atrico.Lib.Expressions.Tests
         public void TestMultipleOperations()
         {
             const string input = "y = x * 2 + 3";
-            var expected = new[] {"/", "+", "y", "3", "2"};
+            var expected = new[] {"/", "-", "y", "3", "2"};
 
             // Arrange
             var master = Expression.Parse(input);

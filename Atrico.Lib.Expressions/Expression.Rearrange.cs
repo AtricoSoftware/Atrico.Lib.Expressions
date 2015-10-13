@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Atrico.Lib.Expressions.Elements;
 using Atrico.Lib.Expressions.Elements.Base;
@@ -42,8 +43,9 @@ namespace Atrico.Lib.Expressions
                 var targetPath = root.Elements.Lhs.FindPath(targetVar).ToArray();
                 var lastOperation = targetPath.First();
                 var varBranch = targetPath.Skip(1).FirstOrDefault() ?? targetVar;
-                var newRoot = root.Replace(lastOperation, targetVar) as AssignmentElement;
-                root = newRoot.Replace(newRoot.Elements.Rhs, lastOperation.Invert(varBranch, newRoot.Elements.Rhs)) as AssignmentElement;
+                var newRoot = root.Replace(lastOperation, varBranch) as AssignmentElement;
+                var inversion = lastOperation.Invert(varBranch, newRoot.Elements.Rhs);
+                root = newRoot.Replace(newRoot.Elements.Rhs, inversion) as AssignmentElement;
             }
         }
     }

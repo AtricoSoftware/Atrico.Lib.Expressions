@@ -37,12 +37,17 @@ namespace Atrico.Lib.Expressions.Elements.Base
             return this;
         }
 
+ 
+        public override string ToXmlString()
+        {
+            return string.Format("<{0} value=\"{1}\"/>", GetType().Name, ToString());
+        }
+
         public override void ToTree(ITreeNodeContainer<string> tree)
         {
             tree.Add(Value.ToString());
         }
-
-        public override string ToString()
+       public override string ToString()
         {
             return Value.ToString();
         }

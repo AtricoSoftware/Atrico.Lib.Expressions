@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Atrico.Lib.Common.Collections.Tree;
 
 namespace Atrico.Lib.Expressions.Elements.Base
@@ -11,7 +12,6 @@ namespace Atrico.Lib.Expressions.Elements.Base
             get { return Properties.Get<ElementPair>(); }
             private set { Properties.Set(value); }
         }
-
 
         protected OperatorElement(ElementPair elements)
         {
@@ -45,12 +45,21 @@ namespace Atrico.Lib.Expressions.Elements.Base
             return Elements.FindVariable(variable);
         }
 
+        public override string ToXmlString()
+        {
+            var xml = new StringBuilder();
+            xml.AppendFormat("<op operator=\"{0}\"", ToString());
+            xml.Append(Elements.Lhs.ToXmlString());
+            xml.Append(Elements.Rhs.ToXmlString());
+            xml.Append("</op");
+            return xml.ToString();
+        }
+
         public override void ToTree(ITreeNodeContainer<string> tree)
         {
             var node = tree.Add(ToString());
             Elements.Lhs.ToTree(node);
             Elements.Rhs.ToTree(node);
         }
-
     }
 }
