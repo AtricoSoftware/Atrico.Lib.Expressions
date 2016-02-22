@@ -77,7 +77,6 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Elements\ElementHelpers.cs" />
     <Compile Include="Elements\ElementPair.cs" />
     <Compile Include="Elements\Base\OperatorElement.cs" />
     <Compile Include="Elements\DivisionElement.cs" />
